@@ -22,6 +22,8 @@ async function bootstrap() {
     .setTitle('KMK API Schema')
     .setDescription('Dokumentacija za KMK API')
     .setVersion('1.0')
+    .addTag('Autentikacija')
+    .addTag('Upiti')
     .addCookieAuth('access_token')
     .build();
   const document = SwaggerModule.createDocument(app, config);

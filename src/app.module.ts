@@ -9,6 +9,7 @@ import {
   getEnvFilePath,
 } from './config/settings/environment.settings';
 import { AuthModule } from './modules/auth/Auth.module';
+import { QueriesModule } from './modules/queries/Queries.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './modules/auth/Auth.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    QueriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

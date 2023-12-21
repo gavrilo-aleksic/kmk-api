@@ -16,7 +16,7 @@ const databaseSettings = async (
     entities: Entities,
     migrationsTableName: 'custom_migration_table',
     migrations: ['migration/*.ts'],
-    logging: ['warn', 'error'],
+    logging: true,
     synchronize: false,
   };
 };

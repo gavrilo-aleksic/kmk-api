@@ -19,11 +19,13 @@ import {
   ApiCookieAuth,
   ApiOperation,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { UserModel } from '../entities/User';
 
 @Controller({ path: '' })
 @ApiCookieAuth()
+@ApiTags('Autentikacija')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
