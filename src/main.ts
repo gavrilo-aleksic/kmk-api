@@ -19,10 +19,10 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('KMK API Schema')
+    .setDescription('Dokumentacija za KMK API')
     .setVersion('1.0')
-    .addTag('cats')
+    .addCookieAuth('access_token')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

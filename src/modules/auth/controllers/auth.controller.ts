@@ -14,10 +14,16 @@ import { AppRequest } from '../auth.types';
 import { LoginUserDTO } from '../entities/User.dto';
 import { AuthService } from '../services/auth.service';
 import { AuthGuardJwt } from '../guards/Auth.guard';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { UserModel } from '../entities/User';
-@ApiBearerAuth()
+
 @Controller({ path: '' })
+@ApiCookieAuth()
 export class AuthController {
   constructor(private authService: AuthService) {}
 
