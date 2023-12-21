@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  Injectable,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -7,7 +12,7 @@ import { ENVIRONMENT_KEYS } from 'src/config/settings/environment.settings';
 import { AppUserJWT } from '../auth.types';
 
 const extractJWTFromRequest = (req: Request) => {
-  return req.headers.authorization;
+  return req.headers.authorization || req.cookies.access_token;
 };
 
 @Injectable()
@@ -21,7 +26,7 @@ export class AuthGuardJwt implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = extractJWTFromRequest(request);
     if (!token) {
-      throw new Error('Missing token');
+      throw new HttpException('Missing token', 401);
     }
     try {
       const payload = await this.jwtService.verifyAsync<AppUserJWT>(token, {
@@ -30,9 +35,9 @@ export class AuthGuardJwt implements CanActivate {
       request['user'] = payload;
     } catch (e) {
       if (e instanceof jwt.TokenExpiredError) {
-        throw new Error('Invalid token');
+        throw new HttpException('Invalid token', 401);
       }
-      throw new Error(`[server error], ${JSON.stringify(e)}`);
+      throw new HttpException(`[server error], ${JSON.stringify(e)}`, 401);
     }
     return true;
   }

@@ -26,7 +26,7 @@ export class AuthService {
     }
 
     if (!validatePassword(password, user.password)) {
-      throw new HttpException('Not Found', 404);
+      throw new HttpException('Invalid Password', 404);
     }
     const jwt = this.generateJwt(
       { id: user.id, username: user.username },
