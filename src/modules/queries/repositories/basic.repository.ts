@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
-import { ExpenseUsageQueryModel } from '../entities/ExpenseUsageQuery';
 import { OperationQueryModel } from '../entities/OperationQuery';
 import { PortionQueryModel } from '../entities/PortionQuery';
 import { MachineQueryModel } from '../entities/MachineQuery';

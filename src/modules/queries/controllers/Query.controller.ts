@@ -12,7 +12,8 @@ import { ApiResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuardJwt } from 'src/modules/auth/guards/Auth.guard';
 import { AppRequest } from 'src/modules/auth/auth.types';
 import { ExpenseUsageQueryModel } from '../entities/ExpenseUsageQuery';
-import { ExpenseWorkerQuery } from '../entities/ExpenseWorkerQuery';
+import { UsagesWorkerQuery } from '../entities/UsagesWorkerQuery';
+import { ExpenseQueryModel } from '../entities/ExpenseQuery';
 
 @Controller('query')
 @ApiTags('Upiti')
@@ -36,7 +37,7 @@ export class QueryController {
   @Get('utrosak-radnik')
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuardJwt)
-  @ApiResponse({ type: ExpenseWorkerQuery })
+  @ApiResponse({ type: UsagesWorkerQuery })
   @ApiOperation({
     summary: 'Podaci o utrosku sa radnikom',
   })
@@ -45,5 +46,16 @@ export class QueryController {
     @Query('utrosakId') expenseId: string,
   ) {
     return this.queryService.getUsageWorkersQuery(request.user, expenseId);
+  }
+
+  @Get('troskovi')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuardJwt)
+  @ApiResponse({ type: ExpenseQueryModel })
+  @ApiOperation({
+    summary: 'Podaci o troskovima',
+  })
+  getExpenses(@Request() request: AppRequest) {
+    return this.queryService.getExpensesQuery(request.user);
   }
 }

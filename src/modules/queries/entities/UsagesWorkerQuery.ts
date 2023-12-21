@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ExpenseWorkerQuery {
+export class UsagesWorkerQuery {
   @ApiProperty({
     description: 'Cas',
   })
