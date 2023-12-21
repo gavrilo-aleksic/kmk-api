@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SettingsModule } from '../settings/Settings.module';
-import { QueryService } from './services/Query.service';
-import { QueryController } from './controllers/Query.controller';
-import { UsageRepository } from './repositories/Usage.repository';
+import { QueryService } from './services/query.service';
+import { QueryController } from './controllers/query.controller';
+import { UsageRepository } from './repositories/usage.repository';
 
 @Module({
   imports: [SettingsModule],
