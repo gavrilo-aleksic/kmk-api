@@ -1,21 +1,18 @@
-import {
-  IsEmail,
-  IsDefined,
-  IsString,
-  IsBoolean,
-  IsOptional,
-} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDefined, IsString } from 'class-validator';
 
 export class LoginUserDTO {
   @IsDefined()
   @IsString()
+  @ApiProperty({
+    description: 'Korisnicko ime',
+  })
   public username: string;
 
   @IsString()
   @IsDefined()
+  @ApiProperty({
+    description: 'lozinka',
+  })
   public password: string;
-
-  @IsBoolean()
-  @IsOptional()
-  public rememberMe: boolean;
 }

@@ -16,10 +16,10 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async login(
-    { username, password }: LoginUserDTO,
-    rememberMe?: boolean,
-  ): Promise<{ accessToken: string }> {
+  async login({
+    username,
+    password,
+  }: LoginUserDTO): Promise<{ accessToken: string }> {
     const user = await this.userRepository.getOneByUsername(username);
     if (!user) {
       throw new HttpException('Not Found', 404);
@@ -30,7 +30,7 @@ export class AuthService {
     }
     const jwt = this.generateJwt(
       { id: user.id, username: user.username },
-      rememberMe,
+      true,
     );
     return {
       accessToken: jwt,
