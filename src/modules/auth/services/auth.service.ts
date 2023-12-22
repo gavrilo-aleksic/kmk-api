@@ -59,4 +59,10 @@ export class AuthService {
     if (!user) throw new HttpException('Not Found', 400);
     return user;
   }
+
+  async getUsers(): Promise<UserModel[]> {
+    const users = await this.userRepository.getAll();
+
+    return users;
+  }
 }

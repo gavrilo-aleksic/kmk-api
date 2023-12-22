@@ -22,7 +22,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserModel } from '../entities/User';
-import { JWTExpirationTime } from '../auth.utils';
 
 @Controller({ path: '' })
 @ApiCookieAuth()
@@ -53,6 +52,17 @@ export class AuthController {
   })
   async userProfile(@Request() request: AppRequest) {
     const user = await this.authService.getUser(request.user.id);
+    return user;
+  }
+
+  @Get('users')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiResponse({ type: 'string', isArray: true })
+  @ApiOperation({
+    summary: 'Lista korisnika',
+  })
+  async userProfiles(@Request() request: AppRequest) {
+    const user = (await this.authService.getUsers()).map((e) => e.username);
     return user;
   }
 

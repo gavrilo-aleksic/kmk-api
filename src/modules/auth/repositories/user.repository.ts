@@ -21,4 +21,8 @@ export class UserRepository {
       where: { id },
     });
   }
+
+  async getAll() {
+    return this.userRepository.find();
+  }
 }
