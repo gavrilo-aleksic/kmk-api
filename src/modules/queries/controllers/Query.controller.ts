@@ -14,6 +14,7 @@ import { AppRequest } from 'src/modules/auth/auth.types';
 import { ExpenseUsageQueryModel } from '../entities/ExpenseUsageQuery';
 import { UsagesWorkerQuery } from '../entities/UsagesWorkerQuery';
 import { ExpenseQueryModel } from '../entities/ExpenseQuery';
+import { DatesDTO } from '../entities/Dates.dto';
 
 @Controller('query')
 @ApiTags('Upiti')
@@ -23,7 +24,7 @@ export class QueryController {
   @Get('utrosak')
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuardJwt)
-  @ApiResponse({ type: ExpenseUsageQueryModel })
+  @ApiResponse({ type: ExpenseUsageQueryModel, isArray: true })
   @ApiOperation({
     summary: 'Podaci o utrosku',
   })
@@ -37,7 +38,7 @@ export class QueryController {
   @Get('utrosak-radnik')
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuardJwt)
-  @ApiResponse({ type: UsagesWorkerQuery })
+  @ApiResponse({ type: UsagesWorkerQuery, isArray: true })
   @ApiOperation({
     summary: 'Podaci o utrosku sa radnikom',
   })
@@ -51,11 +52,11 @@ export class QueryController {
   @Get('troskovi')
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuardJwt)
-  @ApiResponse({ type: ExpenseQueryModel })
+  @ApiResponse({ type: ExpenseQueryModel, isArray: true })
   @ApiOperation({
     summary: 'Podaci o troskovima',
   })
-  getExpenses(@Request() request: AppRequest) {
-    return this.queryService.getExpensesQuery(request.user);
+  getExpenses(@Request() request: AppRequest, @Query() dates: DatesDTO) {
+    return this.queryService.getExpensesQuery(request.user, dates.od, dates.do);
   }
 }
