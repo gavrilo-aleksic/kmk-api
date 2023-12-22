@@ -15,7 +15,6 @@ export class QueryService {
   }
 
   getExpensesQuery(user: AppUserJWT, dateFrom: Date, dateTo: Date) {
-    console.log({ dateFrom, dateTo });
     return this.usageRepository.getExpenses(user.id, dateFrom, dateTo);
   }
 }
