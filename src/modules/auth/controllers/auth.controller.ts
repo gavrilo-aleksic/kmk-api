@@ -22,6 +22,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserModel } from '../entities/User';
+import { JWTExpirationTime } from '../auth.utils';
 
 @Controller({ path: '' })
 @ApiCookieAuth()

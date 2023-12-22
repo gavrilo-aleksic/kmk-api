@@ -19,6 +19,7 @@ export class AuthService {
   async login({
     username,
     password,
+    rememberMe,
   }: LoginUserDTO): Promise<{ accessToken: string }> {
     const user = await this.userRepository.getOneByUsername(username);
     if (!user) {
@@ -30,7 +31,7 @@ export class AuthService {
     }
     const jwt = this.generateJwt(
       { id: user.id, username: user.username },
-      true,
+      rememberMe,
     );
     return {
       accessToken: jwt,
