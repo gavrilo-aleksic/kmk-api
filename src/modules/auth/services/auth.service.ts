@@ -23,11 +23,11 @@ export class AuthService {
   }: LoginUserDTO): Promise<{ accessToken: string }> {
     const user = await this.userRepository.getOneByUsername(username);
     if (!user) {
-      throw new HttpException('Not Found', 404);
+      throw new HttpException('Korisnik nije pronadjen', 404);
     }
 
     if (!validatePassword(password, user.password)) {
-      throw new HttpException('Invalid Password', 404);
+      throw new HttpException('Pogresno korisnicko ime ili lozinka', 404);
     }
     const jwt = this.generateJwt(
       { id: user.id, username: user.username },
