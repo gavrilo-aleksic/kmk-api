@@ -15,6 +15,17 @@ import { ExpenseUsageQueryModel } from '../entities/ExpenseUsageQuery';
 import { UsagesWorkerQuery } from '../entities/UsagesWorkerQuery';
 import { ExpenseQueryModel } from '../entities/ExpenseQuery';
 import { DatesDTO } from '../entities/Dates.dto';
+import { CultureQueryModel } from '../entities/CulturesQuery';
+import { OperationQueryModel } from '../entities/OperationQuery';
+import { MachineQueryModel } from '../entities/MachineQuery';
+import { PortionQueryModel } from '../entities/PortionQuery';
+
+export class EntitiesType {
+  kulture: CultureQueryModel[];
+  operacije: OperationQueryModel[];
+  masine: MachineQueryModel[];
+  parcle: PortionQueryModel[];
+}
 
 @Controller('query')
 @ApiTags('Upiti')
@@ -58,5 +69,16 @@ export class QueryController {
   })
   getExpenses(@Request() request: AppRequest, @Query() dates: DatesDTO) {
     return this.queryService.getExpensesQuery(request.user, dates.od, dates.do);
+  }
+
+  @Get('entiteti')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuardJwt)
+  @ApiResponse({ type: EntitiesType })
+  @ApiOperation({
+    summary: 'Podaci o Operacijama/Kulturama',
+  })
+  getEntities(@Request() request: AppRequest) {
+    return this.queryService.getEntities(request.user);
   }
 }

@@ -9,21 +9,30 @@ import { WorkerQueryModel } from '../entities/WorkerQuery';
 import { WorkTypeQueryModel } from '../entities/WorkTypeQuery';
 
 @Injectable()
-export class UsageRepository {
+export class BaseRepository {
   constructor(
     @InjectEntityManager()
     private manager: EntityManager,
   ) {}
 
-  getOperations() {
+  getOperations(userId: string) {
     return this.manager.query<OperationQueryModel>(
-      `SELECT * FROM operacija ORDER BY naziv_operacije`,
+      `SELECT * FROM operacija  WHERE sifra_korisnika=$1 ORDER BY naziv_operacije`,
+      [userId],
     );
   }
 
-  getPortionCodes() {
+  getCultures(userId: string) {
+    return this.manager.query<OperationQueryModel>(
+      `SELECT * FROM kultura WHERE sifra_korisnika=$1 ORDER BY naziv_kulture`,
+      [userId],
+    );
+  }
+
+  getPortions(userId: string) {
     return this.manager.query<PortionQueryModel>(
-      `SELECT * FROM parcela ORDER BY sifra_parcele`,
+      `SELECT * FROM parcela WHERE sifra_korisnika=$1 ORDER BY sifra_parcele`,
+      [userId],
     );
   }
 
@@ -33,13 +42,14 @@ export class UsageRepository {
     );
   }
 
-  getMachineCodes() {
+  getMachines(userId: string) {
     return this.manager.query<MachineQueryModel>(
-      `SELECT * FROM masine ORDER BY sifra_masine`,
+      `SELECT * FROM masine WHERE sifra_korisnika=$1 ORDER BY sifra_masine`,
+      [userId],
     );
   }
 
-  getWorkersCodes() {
+  getWorkers() {
     return this.manager.query<WorkerQueryModel>(
       `SELECT * FROM radnici ORDER BY sifra_radnika`,
     );
