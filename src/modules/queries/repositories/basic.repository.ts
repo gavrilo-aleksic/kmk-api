@@ -36,9 +36,10 @@ export class BaseRepository {
     );
   }
 
-  getExpenseCodes() {
+  getExpenses(userId: string) {
     return this.manager.query<ExpenditureQueryModel>(
-      `SELECT * FROM utrosci ORDER BY sifra_utroska`,
+      `SELECT * FROM utrosci  WHERE sifra_korisnika=$1 ORDER BY sifra_utroska`,
+      [userId],
     );
   }
 
@@ -49,15 +50,17 @@ export class BaseRepository {
     );
   }
 
-  getWorkers() {
+  getWorkers(userId: string) {
     return this.manager.query<WorkerQueryModel>(
-      `SELECT * FROM radnici ORDER BY sifra_radnika`,
+      `SELECT * FROM radnici WHERE sifra_korisnika=$1 ORDER BY sifra_radnika`,
+      [userId],
     );
   }
 
-  getWorkTypeCodes() {
+  getWorkTypes(userId: string) {
     return this.manager.query<WorkTypeQueryModel>(
-      `SELECT * FROM tip_rada ORDER BY sifra_tip_rada`,
+      `SELECT * FROM tip_rada WHERE sifra_korisnika=$1 ORDER BY sifra_tip_rada`,
+      [userId],
     );
   }
 }

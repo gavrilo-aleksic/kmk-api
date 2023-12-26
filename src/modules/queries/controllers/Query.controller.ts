@@ -19,12 +19,18 @@ import { CultureQueryModel } from '../entities/CulturesQuery';
 import { OperationQueryModel } from '../entities/OperationQuery';
 import { MachineQueryModel } from '../entities/MachineQuery';
 import { PortionQueryModel } from '../entities/PortionQuery';
+import { WorkTypeQueryModel } from '../entities/WorkTypeQuery';
+import { WorkerQueryModel } from '../entities/WorkerQuery';
+import { ExpenditureQueryModel } from '../entities/ExpenditureQuery';
 
 export class EntitiesType {
   kulture: CultureQueryModel[];
   operacije: OperationQueryModel[];
   masine: MachineQueryModel[];
-  parcle: PortionQueryModel[];
+  parcele: PortionQueryModel[];
+  tipoviRada: WorkTypeQueryModel[];
+  radnici: WorkerQueryModel[];
+  utrosci: ExpenditureQueryModel[];
 }
 
 @Controller('query')
@@ -76,7 +82,7 @@ export class QueryController {
   @UseGuards(AuthGuardJwt)
   @ApiResponse({ type: EntitiesType })
   @ApiOperation({
-    summary: 'Podaci o Operacijama/Kulturama',
+    summary: 'Podaci o Operacijama/Kulturama/Radnicima/Tipovima Rada/Utroscima',
   })
   getEntities(@Request() request: AppRequest) {
     return this.queryService.getEntities(request.user);

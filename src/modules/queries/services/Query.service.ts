@@ -36,11 +36,17 @@ export class QueryService {
       this.baseRepository.getOperations(user.id),
       this.baseRepository.getMachines(user.id),
       this.baseRepository.getPortions(user.id),
+      this.baseRepository.getWorkTypes(user.id),
+      this.baseRepository.getWorkers(user.id),
+      this.baseRepository.getExpenses(user.id),
     ]).then((res) => ({
       kulture: res[0],
       operacije: res[1],
       masine: res[2],
       parcele: res[3],
+      tipoviRada: res[4],
+      radnici: res[5],
+      utrosci: res[6],
     }));
   }
 }
