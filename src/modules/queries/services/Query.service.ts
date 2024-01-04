@@ -56,7 +56,6 @@ export class QueryService {
     expenseId: number,
     expense: ExpenseQueryModel,
   ) {
-    console.log('Expense', { expense });
     return this.usageRepository.updateExpense(user.id, expenseId, expense);
   }
 }

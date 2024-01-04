@@ -33,8 +33,8 @@ export class UsageRepository {
   }
 
   updateExpense(
-    expenseId: number,
     userId: number,
+    expenseId: number,
     partialModel: Partial<ExpenseQueryModel>,
   ) {
     return this.manager.query(
@@ -44,10 +44,10 @@ export class UsageRepository {
     sifra_masine=$5,
     sifra_operacije=$6,
     sifra_parcele=$7  
-    WHERE id_rashoda=$1 AND sifra_korisnika=$2`,
+    WHERE sifra_korisnika=$1 AND id_rashoda=$2`,
       [
-        expenseId,
         userId,
+        expenseId,
         partialModel.datum_rashoda,
         partialModel.sifra_kulture,
         partialModel.sifra_masine,
