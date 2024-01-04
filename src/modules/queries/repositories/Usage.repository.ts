@@ -64,4 +64,56 @@ export class UsageRepository {
       [expenseId],
     );
   }
+
+  updateExpenseUsage(
+    userId: number,
+    expenseUsageId: number,
+    partialModel: Partial<ExpenseUsageQueryModel>,
+  ) {
+    return this.manager.query(
+      `UPDATE rashodi_utrosci SET 
+      sifra_utroska=$3,
+      kolicina_utroska=$4
+    WHERE sifra_korisnika=$1 AND id_rashodi_utrosci=$2`,
+      [
+        userId,
+        expenseUsageId,
+        partialModel.sifra_utroska,
+        partialModel.kolicina_utroska,
+      ],
+    );
+  }
+
+  updateUsageWorker(
+    userId: number,
+    usageWorkerId: number,
+    partialModel: Partial<UsagesWorkerQuery>,
+  ) {
+    return this.manager.query(
+      `UPDATE rashodi_radnici SET 
+      cas=$3, 
+      cas_cena=$4, 
+      cas_ucinak=$5,
+      cas_zastoj=$6,
+      pov_ucinak=$7,  
+      sifra_radnika=$8,  
+      sifra_tip_rada=$9,  
+      ucinak=$10,  
+      zastoj=$11 
+    WHERE sifra_korisnika=$1 AND id_rashodi_radnici=$2`,
+      [
+        userId,
+        usageWorkerId,
+        partialModel.cas,
+        partialModel.cas_cena,
+        partialModel.cas_ucinak,
+        partialModel.cas_zastoj,
+        partialModel.pov_ucinak,
+        partialModel.sifra_radnika,
+        partialModel.sifra_tip_rada,
+        partialModel.ucinak,
+        partialModel.zastoj,
+      ],
+    );
+  }
 }

@@ -3,6 +3,8 @@ import { UsageRepository } from '../repositories/usage.repository';
 import { AppUserJWT } from 'src/modules/auth/auth.types';
 import { BaseRepository } from '../repositories/basic.repository';
 import { ExpenseQueryModel } from '../entities/ExpenseQuery';
+import { UsagesWorkerQuery } from '../entities/UsagesWorkerQuery';
+import { ExpenseUsageQueryModel } from '../entities/ExpenseUsageQuery';
 
 @Injectable()
 export class QueryService {
@@ -57,5 +59,29 @@ export class QueryService {
     expense: ExpenseQueryModel,
   ) {
     return this.usageRepository.updateExpense(user.id, expenseId, expense);
+  }
+
+  updateUsageWorker(
+    user: AppUserJWT,
+    usageWorkerId: number,
+    usageWorker: UsagesWorkerQuery,
+  ) {
+    return this.usageRepository.updateUsageWorker(
+      user.id,
+      usageWorkerId,
+      usageWorker,
+    );
+  }
+
+  updateExpenseUsage(
+    user: AppUserJWT,
+    expenseUsageId: number,
+    expenseUsage: ExpenseUsageQueryModel,
+  ) {
+    return this.usageRepository.updateExpenseUsage(
+      user.id,
+      expenseUsageId,
+      expenseUsage,
+    );
   }
 }

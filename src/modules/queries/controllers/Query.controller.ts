@@ -108,4 +108,40 @@ export class QueryController {
       expense,
     );
   }
+
+  @Put('utrosak-radnik')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuardJwt)
+  @ApiOperation({
+    summary:
+      'Azuriranje utrosk-radnika po ID-ju. Neophodno je poslati vrednosti za sve kolone.',
+  })
+  updateUsageWorker(
+    @Request() request: AppRequest,
+    @Body() usage: UsagesWorkerQuery,
+  ) {
+    return this.queryService.updateUsageWorker(
+      request.user,
+      usage.id_rashodi_radnici,
+      usage,
+    );
+  }
+
+  @Put('utrosak')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuardJwt)
+  @ApiOperation({
+    summary:
+      'Azuriranje utrosk-radnika po ID-ju. Neophodno je poslati vrednosti za sve kolone.',
+  })
+  updateExpenseUsage(
+    @Request() request: AppRequest,
+    @Body() expenseUsage: ExpenseUsageQueryModel,
+  ) {
+    return this.queryService.updateExpenseUsage(
+      request.user,
+      expenseUsage.id_rashodi_utrosci,
+      expenseUsage,
+    );
+  }
 }
