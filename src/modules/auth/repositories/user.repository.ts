@@ -16,7 +16,7 @@ export class UserRepository {
     });
   }
 
-  async getOneById(id: string) {
+  async getOneById(id: number) {
     return this.userRepository.findOne({
       where: { id },
     });

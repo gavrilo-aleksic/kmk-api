@@ -11,8 +11,8 @@ export const validatePassword = (input: string, originalPassword: string) => {
   return input.trim() === originalPassword.trim();
 };
 
-/** Valid for one year */
-export const JWTExpirationTime = 60 * 60 * 24 * 30 * 12;
+/** Valid for one day */
+export const JWTExpirationTime = 60 * 60 * 24;
 
 export const createJWTExpirationDate = (longExpiration?: boolean) => {
   const date = new Date();

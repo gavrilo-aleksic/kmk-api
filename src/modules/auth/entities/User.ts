@@ -9,7 +9,7 @@ export class UserModel {
     example: '1',
     description: 'ID korisnika',
   })
-  public id: string;
+  public id: number;
 
   @Column({ type: 'varchar', name: 'naziv_korisnika' })
   @ApiProperty({

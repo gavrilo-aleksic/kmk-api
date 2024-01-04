@@ -3,7 +3,7 @@ export interface AppRequest extends Request {
 }
 
 export interface AppUserJWT {
-  id: string;
+  id: number;
   username: string;
   exp: number;
 }

@@ -1,7 +1,10 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Param,
+  Put,
   Query,
   Request,
   UseGuards,
@@ -86,5 +89,23 @@ export class QueryController {
   })
   getEntities(@Request() request: AppRequest) {
     return this.queryService.getEntities(request.user);
+  }
+
+  @Put('troskovi')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuardJwt)
+  @ApiOperation({
+    summary:
+      'Azuriranje utroska po ID-ju. Neophodno je poslati vrednosti za sve kolone.',
+  })
+  updateExpense(
+    @Request() request: AppRequest,
+    @Body() expense: ExpenseQueryModel,
+  ) {
+    return this.queryService.updateExpense(
+      request.user,
+      expense.id_rashoda,
+      expense,
+    );
   }
 }

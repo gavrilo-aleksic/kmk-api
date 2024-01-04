@@ -15,49 +15,49 @@ export class BaseRepository {
     private manager: EntityManager,
   ) {}
 
-  getOperations(userId: string) {
+  getOperations(userId: number) {
     return this.manager.query<OperationQueryModel>(
       `SELECT * FROM operacija  WHERE sifra_korisnika=$1 ORDER BY naziv_operacije`,
       [userId],
     );
   }
 
-  getCultures(userId: string) {
+  getCultures(userId: number) {
     return this.manager.query<OperationQueryModel>(
       `SELECT * FROM kultura WHERE sifra_korisnika=$1 ORDER BY naziv_kulture`,
       [userId],
     );
   }
 
-  getPortions(userId: string) {
+  getPortions(userId: number) {
     return this.manager.query<PortionQueryModel>(
       `SELECT * FROM parcela WHERE sifra_korisnika=$1 ORDER BY sifra_parcele`,
       [userId],
     );
   }
 
-  getExpenses(userId: string) {
+  getExpenses(userId: number) {
     return this.manager.query<ExpenditureQueryModel>(
       `SELECT * FROM utrosci  WHERE sifra_korisnika=$1 ORDER BY sifra_utroska`,
       [userId],
     );
   }
 
-  getMachines(userId: string) {
+  getMachines(userId: number) {
     return this.manager.query<MachineQueryModel>(
       `SELECT * FROM masine WHERE sifra_korisnika=$1 ORDER BY sifra_masine`,
       [userId],
     );
   }
 
-  getWorkers(userId: string) {
+  getWorkers(userId: number) {
     return this.manager.query<WorkerQueryModel>(
       `SELECT * FROM radnici WHERE sifra_korisnika=$1 ORDER BY sifra_radnika`,
       [userId],
     );
   }
 
-  getWorkTypes(userId: string) {
+  getWorkTypes(userId: number) {
     return this.manager.query<WorkTypeQueryModel>(
       `SELECT * FROM tip_rada WHERE sifra_korisnika=$1 ORDER BY sifra_tip_rada`,
       [userId],

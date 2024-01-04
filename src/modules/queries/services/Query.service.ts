@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsageRepository } from '../repositories/usage.repository';
 import { AppUserJWT } from 'src/modules/auth/auth.types';
 import { BaseRepository } from '../repositories/basic.repository';
+import { ExpenseQueryModel } from '../entities/ExpenseQuery';
 
 @Injectable()
 export class QueryService {
@@ -48,5 +49,14 @@ export class QueryService {
       radnici: res[5],
       utrosci: res[6],
     }));
+  }
+
+  updateExpense(
+    user: AppUserJWT,
+    expenseId: number,
+    expense: ExpenseQueryModel,
+  ) {
+    console.log('Expense', { expense });
+    return this.usageRepository.updateExpense(user.id, expenseId, expense);
   }
 }

@@ -53,7 +53,7 @@ export class AuthService {
     });
   }
 
-  async getUser(id: string): Promise<UserModel> {
+  async getUser(id: number): Promise<UserModel> {
     const user = await this.userRepository.getOneById(id);
 
     if (!user) throw new HttpException('Not Found', 400);

@@ -20,7 +20,7 @@ export class UsageRepository {
     );
   }
 
-  getExpenses(userId: string, dateFrom: Date, dateTo: Date) {
+  getExpenses(userId: number, dateFrom: Date, dateTo: Date) {
     return this.manager.query<ExpenseQueryModel[]>(
       `SELECT DISTINCT r.id_rashoda, r.datum_rashoda AS datum_rashoda, p.naziv_parcele, k.naziv_kulture, m.naziv_masine, o.naziv_operacije, r.sifra_parcele, r.sifra_masine, r.sifra_kulture, r.sifra_operacije
        FROM rashodi AS r, masine AS m, kultura AS k, operacija AS o, parcela AS p 
@@ -29,6 +29,31 @@ export class UsageRepository {
        AND r.datum_rashoda BETWEEN SYMMETRIC $2 AND $3
       ORDER BY r.id_rashoda`,
       [userId, dateFrom, dateTo],
+    );
+  }
+
+  updateExpense(
+    expenseId: number,
+    userId: number,
+    partialModel: Partial<ExpenseQueryModel>,
+  ) {
+    return this.manager.query(
+      `UPDATE rashodi SET 
+    datum_rashoda=$3, 
+    sifra_kulture=$4, 
+    sifra_masine=$5,
+    sifra_operacije=$6,
+    sifra_parcele=$7  
+    WHERE id_rashoda=$1 AND sifra_korisnika=$2`,
+      [
+        expenseId,
+        userId,
+        partialModel.datum_rashoda,
+        partialModel.sifra_kulture,
+        partialModel.sifra_masine,
+        partialModel.sifra_operacije,
+        partialModel.sifra_parcele,
+      ],
     );
   }
 
